@@ -2,9 +2,10 @@ import "./App.css";
 import React, { useRef } from "react";
 import { AddPost } from "./components/AddPost";
 import { useState, useEffect } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, useParams } from "react-router-dom";
 import Post from "./components/post";
 import { Search } from "./components/Search";
+import NewPageTask from "./components/SinglePost";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -14,6 +15,7 @@ function App() {
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef(null);
+  // const { params } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
@@ -103,40 +105,56 @@ function App() {
     }
   };
 
+  const MainPage = () => {
+    return (
+      <div className="App">
+        <h1>To Do List</h1>
+        <AddPost create={create} />
+        <button className="sortButton" onClick={sort} ref={ref}>
+          Sort
+        </button>
+        <button className="searchButton" onClick={visible} ref={searchRef}>
+          Search
+        </button>
+        <Search
+          todoList={todoList}
+          setTodoList={setTodoList}
+          prevTodo={prevTodo}
+          setPrevTodo={setPrevTodo}
+          searchVisble={searchVisble}
+        ></Search>
+        {isLoading ? (
+          <div className="loaderWrapper">
+            <div class="loader"></div>
+          </div>
+        ) : (
+          todoList.map((todo, index) => (
+            <Post
+              key={todo.id}
+              task={todo}
+              index={index}
+              deletePost={deletePost}
+              edit={edit}
+            />
+          ))
+        )}
+        <p className="AppFooter"></p>
+      </div>
+    );
+  };
+
   return (
-    <div className="App">
-      <h1>To Do List</h1>
-      <AddPost create={create} />
-      <button className="sortButton" onClick={sort} ref={ref}>
-        Sort
-      </button>
-      <button className="searchButton" onClick={visible} ref={searchRef}>
-        Search
-      </button>
-      <Search
-        todoList={todoList}
-        setTodoList={setTodoList}
-        prevTodo={prevTodo}
-        setPrevTodo={setPrevTodo}
-        searchVisble={searchVisble}
-      ></Search>
-      {isLoading ? (
-        <div className="loaderWrapper">
-          <div class="loader"></div>
-        </div>
-      ) : (
-        todoList.map((todo, index) => (
-          <Post
-            key={todo.id}
-            task={todo}
-            index={index}
-            deletePost={deletePost}
-            edit={edit}
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route
+            path="task/:id"
+            element={<NewPageTask todoList={todoList} />}
           />
-        ))
-      )}
-      <p className="AppFooter"></p>
-    </div>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

@@ -123,13 +123,3 @@ h1 {
   border-color: #fff #fff transparent transparent;
   animation: rotation 1.5s linear infinite;
 }
-
-.active {
-  background-color: #5986db;
-  color: white;
-}
-
-.disactive {
-  background-color: #5986db;
-  color: white;
-}
