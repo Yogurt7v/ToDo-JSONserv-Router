@@ -1,22 +1,62 @@
-import style from "./search.module.css"
-import { useState } from "react"
+import style from "./search.module.css";
+import { useState, useRef } from "react";
 
-export const Search = ({todoList, searchVisble}) => {
-	const [search, setSearch] = useState('')
+export const Search = ({ todoList, setTodoList, searchVisble }) => {
+  const [search, setSearch] = useState("");
+  const [prevValue, setPrevValue] = useState([]);
+  const input = useRef(null);
+  const [message, setMessage] = useState("");
 
-	const startSearch = (event)=>{
-		setSearch(event.target.value);
-	}
-	const foundSearch = todoList.find((item) => item.task === search);
-	const message = foundSearch ? 'Такое дело уже есть' : '';
+  const startSearch = (event) => {
+    setSearch(event.target.value);
+  };
+  // let a = JSON.stringify(todoList);
+  let odjCopy = [...todoList];
 
-	return (
-		<div className={style.search}>
-			{searchVisble === true ? (
-   			<input type="text" className={style.input} placeholder="What task are we looking for?" onChange={startSearch}/>
+  const letsSearch = () => {
+    const foundSearch = todoList.filter((item) => item.task === search);
 
-			) : ""}
-			{searchVisble === true? <div className={style.text}>{message}</div> : ""}
-		</div>
-	)
-}
+    if (foundSearch.length === 0) {
+      setMessage("Ничего не найдено");
+      setPrevValue(odjCopy);
+      setTodoList(odjCopy);
+    } else {
+      setMessage("Найдено");
+      setTodoList(foundSearch);
+    }
+    console.log(odjCopy);
+  };
+
+  const clearSearchInput = () => {
+    input.current.value = "";
+    setTodoList(prevValue);
+    setMessage("");
+  };
+
+  return (
+    <div className={style.search}>
+      {searchVisble === true ? <div className={style.text}>{message}</div> : ""}
+      {searchVisble === true ? (
+        <>
+          <input
+            type="text"
+            ref={input}
+            className={style.input}
+            placeholder="What task are we looking for?"
+            onChange={startSearch}
+          />
+          <div className={style.buttonWrapper}>
+            <button className={style.btn} onClick={letsSearch}>
+              Искать
+            </button>
+            <button className={style.btn} onClick={clearSearchInput}>
+              Очистить поиск
+            </button>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
+    </div>
+  );
+};

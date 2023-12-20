@@ -13,3 +13,13 @@
   text-align: center;
   color: brown;
 }
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn {
+  width: 150px;
+}

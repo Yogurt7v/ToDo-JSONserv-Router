@@ -12,6 +12,7 @@ function App() {
   const [prevTodo, setPrevTodo] = useState([...todoList]);
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const searchRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -71,6 +72,13 @@ function App() {
 
   const visible = () => {
     setSearchVisble(!searchVisble);
+    if (searchVisble) {
+      searchRef.current.style.backgroundColor = "white";
+      searchRef.current.style.color = "black";
+    } else {
+      searchRef.current.style.backgroundColor = "#5986db";
+      searchRef.current.style.color = "white";
+    }
   };
 
   const sort = () => {
@@ -99,10 +107,16 @@ function App() {
       <button className="sortButton" onClick={sort} ref={ref}>
         Sort
       </button>
-      <button className="searchButton" onClick={visible}>
+      <button className="searchButton" onClick={visible} ref={searchRef}>
         Search
       </button>
-      <Search todoList={todoList} searchVisble={searchVisble}></Search>
+      <Search
+        todoList={todoList}
+        setTodoList={setTodoList}
+        prevTodo={prevTodo}
+        setPrevTodo={setPrevTodo}
+        searchVisble={searchVisble}
+      ></Search>
       {isLoading ? (
         <div className="loaderWrapper">
           <div class="loader"></div>
