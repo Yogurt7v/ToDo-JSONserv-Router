@@ -1,0 +1,142 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: linear-gradient(
+    102.7deg,
+    rgba(253, 218, 255, 1) 8.2%,
+    rgba(223, 173, 252, 1) 19.6%,
+    hsl(216, 93%, 83%) 36.8%,
+    rgba(173, 252, 244, 1) 73.2%,
+    rgba(202, 248, 208, 1) 90.9%
+  );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  width: 600px;
+  max-height: max-content;
+  height: 99%;
+  margin: auto;
+  margin-top: 40px;
+  background-color: #fff;
+  border-radius: 16px;
+  font-size: 15px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  color: #455963;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+  overflow: auto;
+  opacity: 0.9;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  margin: 50px 0px;
+}
+
+.AppFooter {
+  margin: 0;
+  padding-bottom: 30px;
+  border-bottom: none;
+}
+
+.searchButton {
+  margin: 30px 50px 0 50px;
+  width: 500px;
+  color: black;
+  background-color: white;
+  border: 0.5px solid #5986db;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 20px;
+  font-family: "Roboto";
+}
+
+.searchButton:hover {
+  background-color: #5986db;
+  color: white;
+}
+
+.sortButton {
+  margin: 30px 50px 0 50px;
+  width: 500px;
+  color: black;
+  background-color: white;
+  border: 0.5px solid #5986db;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 20px;
+  font-family: "Roboto";
+}
+
+.sortButton:hover {
+  background-color: #5986db;
+  color: white;
+}
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #455963 #455963 transparent transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 3px solid;
+  border-color: transparent transparent #5986db #455963;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotationBack 0.5s linear infinite;
+  transform-origin: center center;
+}
+.loader::before {
+  width: 32px;
+  height: 32px;
+  border-color: #fff #fff transparent transparent;
+  animation: rotation 1.5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
