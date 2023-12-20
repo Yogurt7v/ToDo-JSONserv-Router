@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useRef } from "react";
 import { AddPost } from "./components/AddPost";
 import { useState, useEffect } from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Post from "./components/post";
 import { Search } from "./components/Search";
 
