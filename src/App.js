@@ -48,7 +48,7 @@ function App() {
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify({
         id: `${todoList[index].id}`,
-        task: prompt("Измените задачу"),
+        task: prompt("Измените задачу", `${todoList[index].task}`),
       }),
     })
       .then((rawResponse) => rawResponse.json())
