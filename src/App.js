@@ -15,7 +15,6 @@ function App() {
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef(null);
-  let { id } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
@@ -108,13 +107,13 @@ function App() {
   const NewPageTask = () => {
     const { id } = useParams();
 
-    let message = todoList.find((el) => el.id === Number(id)).task;
-    console.log(message);
+    let mes = todoList.find((el) => el.id === Number(id)).task;
     return (
       <>
         <div className="NewPage">
           <div className="NewPageWrapper">
-            <h1>{message}</h1>
+            <h1>{mes}</h1>
+            <button className="backButton">Назад</button>
           </div>
         </div>
       </>

@@ -10,11 +10,11 @@ export const Search = ({ todoList, setTodoList, searchVisble }) => {
   const startSearch = (event) => {
     setSearch(event.target.value);
   };
-  // let a = JSON.stringify(todoList);
-  let odjCopy = todoList.map((item) => item);
+  const odjCopy = JSON.parse(JSON.stringify(todoList));
 
   const letsSearch = () => {
-    const foundSearch = todoList.filter((item) => item.task === search);
+    const foundSearch = odjCopy.filter((item) => item.task === search);
+
     if (foundSearch.length === 0) {
       setMessage("Ничего не найдено");
       setPrevValue(odjCopy);

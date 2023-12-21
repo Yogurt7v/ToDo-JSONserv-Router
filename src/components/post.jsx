@@ -16,13 +16,15 @@ export const Post = ({ task, deletePost, index, edit }) => {
         </>
       ) : (
         <>
-          <Link to={`task/${task.id}`} className={style.postLink}>
-            {task.task}
-          </Link>
-          <div className={style.postButtons}>
-            <div className={style.buttonWrapper}>
-              <button onClick={() => edit(task.id)}>Edit</button>
-              <button onClick={() => deletePost(task.id)}>Delete</button>
+          <div className={style.postWrapper}>
+            <Link to={`task/${task.id}`} className={style.postLink}>
+              {task.task}
+            </Link>
+            <div className={style.postButtons}>
+              <div className={style.buttonWrapper}>
+                <button onClick={() => edit(task.id)}>Edit</button>
+                <button onClick={() => deletePost(task.id)}>Delete</button>
+              </div>
             </div>
           </div>
         </>
