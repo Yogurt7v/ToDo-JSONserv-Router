@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import style from "./post.module.css";
-import NewPageTask from "./SinglePost";
+// import NewPageTask from "./SinglePost";
 
 export const Post = ({ task, deletePost, index, edit }) => {
   const [closed, setClosed] = useState(true);

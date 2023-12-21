@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route, BrowserRouter, useParams } from "react-router-dom";
 import Post from "./components/post";
 import { Search } from "./components/Search";
-import NewPageTask from "./components/SinglePost";
+// import NewPageTask from "./components/SinglePost";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -15,7 +15,7 @@ function App() {
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef(null);
-  // const { params } = useParams();
+  let { id } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
@@ -105,6 +105,22 @@ function App() {
     }
   };
 
+  const NewPageTask = () => {
+    const { id } = useParams();
+
+    let message = todoList.find((el) => el.id === Number(id)).task;
+    console.log(message);
+    return (
+      <>
+        <div className="NewPage">
+          <div className="NewPageWrapper">
+            <h1>{message}</h1>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   const MainPage = () => {
     return (
       <div className="App">
@@ -148,10 +164,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route
-            path="task/:id"
-            element={<NewPageTask todoList={todoList} />}
-          />
+          <Route path="task/:id" element={<NewPageTask />} />
         </Routes>
       </BrowserRouter>
     </>
