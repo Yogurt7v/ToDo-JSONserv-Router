@@ -48,10 +48,8 @@ button {
 }
 
 .postTitle {
-  display: flex;
   margin: auto;
   justify-content: center;
-  /* padding: 5px 50px 5px 50px; */
   font-family: "Roboto";
   font-weight: 400;
   font-size: 30px;
@@ -62,23 +60,26 @@ button {
   border-bottom: 0.5px solid grey;
   margin-bottom: 30px;
   padding-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+
 }
+
 
 .postLink {
   text-decoration: none;
-  display: flex;
-  margin: auto;
-  justify-content: center;
-  /* padding: 5px 50px 5px 50px; */
   font-family: "Roboto";
   font-weight: 400;
   font-size: 30px;
   color: black;
   outline: none;
-  width: 90%;
   border: none;
   border-bottom: 0.5px solid grey;
   margin-bottom: 30px;
   padding-bottom: 5px;
+  display: block;
+  width: 450px;
+  word-wrap: break-word;
 
 }

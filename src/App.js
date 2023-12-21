@@ -74,15 +74,15 @@ function App() {
 
   const visible = () => {
     setSearchVisble(!searchVisble);
-    if (searchVisble) {
-      searchRef.current.addClassName = "active";
-      searchRef.current.style.backgroundColor = "white";
-      searchRef.current.style.color = "black";
-    } else {
-      searchRef.current.addClassName = "disactive";
-      searchRef.current.style.backgroundColor = "#5986db";
-      searchRef.current.style.color = "white";
-    }
+    // if (searchVisble) {
+    //   searchRef.current.addClassName = "active";
+    //   searchRef.current.style.backgroundColor = "white";
+    //   searchRef.current.style.color = "black";
+    // } else {
+    //   searchRef.current.addClassName = "disactive";
+    //   searchRef.current.style.backgroundColor = "#5986db";
+    //   searchRef.current.style.color = "white";
+    // }
   };
 
   const sort = () => {
@@ -112,7 +112,7 @@ function App() {
       <>
         <div className="NewPage">
           <div className="NewPageWrapper">
-            <h1>{mes}</h1>
+            <span>{mes}</span>
             <button className="backButton">Назад</button>
           </div>
         </div>

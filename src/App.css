@@ -126,15 +126,31 @@ h1 {
 
 .NewPage {
   display: flex;
+
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   width: 300px;
   height: 200px;
   margin: auto;
   margin-top: 100px;
+  padding: 50px 20px;
   background-color: white;
   border-radius: 16px;
+  word-break: break-all;
+  white-space: wrap;
+  text-overflow: ellipsis;
 }
 
-.NewPage h1 {
+.NewPage span {
   margin-bottom: 30px;
+  font-size: 35px;
+  width: 250px;
+  word-wrap: break-all;
+}
+
+.NewPageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
