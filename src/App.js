@@ -2,9 +2,16 @@ import "./App.css";
 import React, { useRef } from "react";
 import { AddPost } from "./components/AddPost";
 import { useState, useEffect } from "react";
-import { Routes, Route, BrowserRouter, useParams } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+  useParams,
+  useNavigate,
+} from "react-router-dom";
 import Post from "./components/post";
 import { Search } from "./components/Search";
+import { NoPage } from "./components/NoPage";
 // import NewPageTask from "./components/SinglePost";
 
 function App() {
@@ -15,6 +22,7 @@ function App() {
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef(null);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -164,6 +172,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="task/:id" element={<NewPageTask />} />
+          <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>
     </>
