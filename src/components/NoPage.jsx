@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 export const NoPage = () => {
   const navigate = useNavigate();
+  navigate("/404");
+
   setTimeout(() => {
     navigate("/");
   }, 3000);

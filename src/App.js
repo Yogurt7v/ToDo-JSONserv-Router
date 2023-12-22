@@ -165,6 +165,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="task/:id" element={<NewPageTask />} />
           <Route path="*" element={<NoPage />} />
+          <Route path="/404" element={<NoPage />} />
         </Routes>
       </BrowserRouter>
     </>
