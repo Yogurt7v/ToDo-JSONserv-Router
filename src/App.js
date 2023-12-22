@@ -1,7 +1,5 @@
 import "./App.css";
-import React, { useRef } from "react";
-import { AddPost } from "./components/AddPost";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Routes,
   Route,
@@ -10,9 +8,9 @@ import {
   useNavigate,
 } from "react-router-dom";
 import Post from "./components/post";
+import { AddPost } from "./components/AddPost";
 import { Search } from "./components/Search";
 import { NoPage } from "./components/NoPage";
-// import NewPageTask from "./components/SinglePost";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -22,7 +20,6 @@ function App() {
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef(null);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -82,15 +79,6 @@ function App() {
 
   const visible = () => {
     setSearchVisble(!searchVisble);
-    // if (searchVisble) {
-    //   searchRef.current.addClassName = "active";
-    //   searchRef.current.style.backgroundColor = "white";
-    //   searchRef.current.style.color = "black";
-    // } else {
-    //   searchRef.current.addClassName = "disactive";
-    //   searchRef.current.style.backgroundColor = "#5986db";
-    //   searchRef.current.style.color = "white";
-    // }
   };
 
   const sort = () => {
@@ -113,6 +101,8 @@ function App() {
   };
 
   const NewPageTask = () => {
+    const nav = useNavigate();
+
     const { id } = useParams();
 
     let mes = todoList.find((el) => el.id === Number(id)).task;
@@ -121,7 +111,9 @@ function App() {
         <div className="NewPage">
           <div className="NewPageWrapper">
             <span>{mes}</span>
-            <button className="backButton">Назад</button>
+            <button className="backButton" onClick={() => nav(-1)}>
+              Назад
+            </button>
           </div>
         </div>
       </>

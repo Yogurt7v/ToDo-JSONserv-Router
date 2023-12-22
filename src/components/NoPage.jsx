@@ -1,7 +1,13 @@
 import React from "react";
 import style from "./NoPage.module.css";
+import { useNavigate } from "react-router-dom";
 
 export const NoPage = () => {
+  const navigate = useNavigate();
+  setTimeout(() => {
+    navigate("/");
+  }, 3000);
+
   return (
     <div className={style.noPage}>
       <h1>404</h1>

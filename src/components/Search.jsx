@@ -1,5 +1,6 @@
 import style from "./search.module.css";
 import { useState, useRef } from "react";
+import React from "react";
 
 export const Search = ({ todoList, setTodoList, searchVisble }) => {
   const [search, setSearch] = useState("");
@@ -11,23 +12,23 @@ export const Search = ({ todoList, setTodoList, searchVisble }) => {
     setSearch(event.target.value);
   };
 
+  let odjCopy = JSON.parse(JSON.stringify(todoList));
+
   const letsSearch = () => {
-    let odjCopy = JSON.parse(JSON.stringify(todoList));
-    setPrevValue(odjCopy);
     const foundSearch = todoList.filter((item) => item.task === search);
 
     if (foundSearch.length === 0) {
       setMessage("Ничего не найдено");
-      // setPrevValue(odjCopy);
-      setTodoList(odjCopy);
     } else {
       setMessage("Найдено");
-      setTodoList(foundSearch);
+      // setPrevValue(odjCopy);
+      // setTodoList(foundSearch);
     }
   };
 
   const clearSearchInput = () => {
     input.current.value = "";
+    // setTodoList(prevValue);
     setMessage("");
   };
 
