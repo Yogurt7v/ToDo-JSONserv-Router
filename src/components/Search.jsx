@@ -4,7 +4,7 @@ import React from "react";
 
 export const Search = ({ todoList, setTodoList, searchVisble }) => {
   const [search, setSearch] = useState("");
-  const [prevValue, setPrevValue] = useState([]);
+  const [prevValue, setPrevValue] = useState([...todoList]);
   const input = useRef(null);
   const [message, setMessage] = useState("");
 
@@ -12,24 +12,23 @@ export const Search = ({ todoList, setTodoList, searchVisble }) => {
     setSearch(event.target.value);
   };
 
-  let odjCopy = JSON.parse(JSON.stringify(todoList));
-
+  // const backup = [...todoList];
   const letsSearch = () => {
     const foundSearch = todoList.filter((item) => item.task === search);
-
     if (foundSearch.length === 0) {
       setMessage("Ничего не найдено");
     } else {
       setMessage("Найдено");
-      // setPrevValue(odjCopy);
-      // setTodoList(foundSearch);
+      // setPrevValue(todoList);
+      setTodoList(foundSearch);
     }
   };
 
   const clearSearchInput = () => {
-    input.current.value = "";
-    // setTodoList(prevValue);
+    console.log(prevValue);
+    setTodoList(prevValue);
     setMessage("");
+    input.current.value = "";
   };
 
   return (

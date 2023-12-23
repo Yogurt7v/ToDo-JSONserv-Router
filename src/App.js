@@ -137,8 +137,6 @@ function App() {
         <Search
           todoList={todoList}
           setTodoList={setTodoList}
-          prevTodo={prevTodo}
-          setPrevTodo={setPrevTodo}
           searchVisble={searchVisble}
         ></Search>
         {isLoading ? (
