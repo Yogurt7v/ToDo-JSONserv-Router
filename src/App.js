@@ -107,7 +107,7 @@ function App() {
 
     useEffect(() => {
       setMes(todoList.find((el) => el.id === Number(id)).task);
-    }, [id, todoList]);
+    }, [id]);
 
     return (
       <>
