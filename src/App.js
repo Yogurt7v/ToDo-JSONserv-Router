@@ -102,10 +102,13 @@ function App() {
 
   const NewPageTask = () => {
     const nav = useNavigate();
-
     const { id } = useParams();
+    const [mes, setMes] = useState("");
 
-    let mes = todoList.find((el) => el.id === Number(id)).task;
+    useEffect(() => {
+      setMes(todoList.find((el) => el.id === Number(id)).task);
+    }, [id, todoList]);
+
     return (
       <>
         <div className="NewPage">
