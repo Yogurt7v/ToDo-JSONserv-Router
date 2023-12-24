@@ -1,39 +1,45 @@
 import style from "./search.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import React from "react";
 
 export const Search = ({ todoList, setTodoList, searchVisble }) => {
   const [search, setSearch] = useState("");
-  const [prevValue, setPrevValue] = useState([...todoList]);
   const input = useRef(null);
-  const [message, setMessage] = useState("");
+  const [resultMessage, setResultMessage] = useState("");
 
   const startSearch = (event) => {
-    setSearch(event.target.value);
+    return setSearch(event.target.value);
   };
 
-  // const backup = [...todoList];
+  const searchedList = (word) => {
+    fetch(`http://localhost:3004/todo/?q=${word}`, {
+      method: "GET",
+    })
+      .then((rawResponse) => rawResponse.json())
+      .then((response) => {
+        if (response.length === 0) {
+          setResultMessage("Ничего не найдено");
+        } else {
+          setTodoList([...response]);
+        }
+      })
+      .finally(() => {});
+  };
   const letsSearch = () => {
-    const foundSearch = todoList.filter((item) => item.task === search);
-    if (foundSearch.length === 0) {
-      setMessage("Ничего не найдено");
-    } else {
-      setMessage("Найдено");
-      // setPrevValue(todoList);
-      setTodoList(foundSearch);
-    }
+    searchedList(search);
   };
 
   const clearSearchInput = () => {
-    console.log(prevValue);
-    setTodoList(prevValue);
-    setMessage("");
-    input.current.value = "";
+    searchedList("");
   };
 
   return (
     <div className={style.search}>
-      {searchVisble === true ? <div className={style.text}>{message}</div> : ""}
+      {searchVisble === true ? (
+        <div className={style.text}>{resultMessage}</div>
+      ) : (
+        ""
+      )}
       {searchVisble === true ? (
         <>
           <input
