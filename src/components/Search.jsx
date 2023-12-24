@@ -1,5 +1,5 @@
 import style from "./search.module.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import React from "react";
 
 export const Search = ({ todoList, setTodoList, searchVisble }) => {
