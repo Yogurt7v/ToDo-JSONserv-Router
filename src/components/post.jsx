@@ -3,7 +3,7 @@ import { useState } from "react";
 import style from "./post.module.css";
 // import NewPageTask from "./SinglePost";
 
-export const Post = ({ task, deletePost, index, edit }) => {
+export const Post = ({ task, deletePost, edit }) => {
   const [closed, setClosed] = useState(true);
 
   return (

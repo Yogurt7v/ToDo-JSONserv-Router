@@ -1,11 +1,13 @@
 import style from "./search.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import { Context } from "./Context";
 import React from "react";
 
-export const Search = ({ todoList, setTodoList, searchVisble }) => {
+export const Search = ({ searchVisble }) => {
   const [search, setSearch] = useState("");
   const input = useRef(null);
   const [resultMessage, setResultMessage] = useState("");
+  const { setTodoList } = useContext(Context);
 
   const startSearch = (event) => {
     return setSearch(event.target.value);

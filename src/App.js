@@ -11,6 +11,7 @@ import Post from "./components/post";
 import { AddPost } from "./components/AddPost";
 import { Search } from "./components/Search";
 import { NoPage } from "./components/NoPage";
+import { Context } from "./components/Context";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -125,37 +126,35 @@ function App() {
 
   const MainPage = () => {
     return (
-      <div className="App">
-        <h1>To Do List</h1>
-        <AddPost create={create} />
-        <button className="sortButton" onClick={sort} ref={ref}>
-          Sort
-        </button>
-        <button className="searchButton" onClick={visible} ref={searchRef}>
-          Search
-        </button>
-        <Search
-          todoList={todoList}
-          setTodoList={setTodoList}
-          searchVisble={searchVisble}
-        ></Search>
-        {isLoading ? (
-          <div className="loaderWrapper">
-            <div class="loader"></div>
-          </div>
-        ) : (
-          todoList.map((todo, index) => (
-            <Post
-              key={todo.id}
-              task={todo}
-              index={index}
-              deletePost={deletePost}
-              edit={edit}
-            />
-          ))
-        )}
-        <p className="AppFooter"></p>
-      </div>
+      <Context.Provider value={{ todoList, setTodoList }}>
+        <div className="App">
+          <h1>To Do List</h1>
+          <AddPost create={create} />
+          <button className="sortButton" onClick={sort} ref={ref}>
+            Sort
+          </button>
+          <button className="searchButton" onClick={visible} ref={searchRef}>
+            Search
+          </button>
+          <Search searchVisble={searchVisble}></Search>
+          {isLoading ? (
+            <div className="loaderWrapper">
+              <div class="loader"></div>
+            </div>
+          ) : (
+            todoList.map((todo, index) => (
+              <Post
+                key={todo.id}
+                task={todo}
+                index={index}
+                deletePost={deletePost}
+                edit={edit}
+              />
+            ))
+          )}
+          <p className="AppFooter"></p>
+        </div>
+      </Context.Provider>
     );
   };
 
