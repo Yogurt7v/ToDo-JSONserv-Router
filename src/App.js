@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AddPost } from "./components/AddPost";
 import { SearchResult } from "./components/SearchResult";
