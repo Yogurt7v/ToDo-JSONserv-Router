@@ -107,7 +107,14 @@ function App() {
     const [mes, setMes] = useState("");
 
     useEffect(() => {
-      setMes(todoList.find((el) => el.id === Number(id)).task);
+      fetch("http://localhost:3004/todo")
+        .then((loadedData) => loadedData.json())
+        .then((loadedToDos) => {
+          setMes(loadedToDos.find((el) => el.id === Number(id)).task);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }, [id]);
 
     return (
