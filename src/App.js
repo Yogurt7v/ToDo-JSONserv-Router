@@ -12,6 +12,7 @@ import { AddPost } from "./components/AddPost";
 import { Search } from "./components/Search";
 import { NoPage } from "./components/NoPage";
 import { Context } from "./components/Context";
+import { NewPageTask } from "./components/NewPageTask";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -101,35 +102,35 @@ function App() {
     }
   };
 
-  const NewPageTask = () => {
-    const nav = useNavigate();
-    const { id } = useParams();
-    const [mes, setMes] = useState("");
+  // const NewPageTask = () => {
+  //   const nav = useNavigate();
+  //   const { id } = useParams();
+  //   const [mes, setMes] = useState("");
 
-    useEffect(() => {
-      fetch("http://localhost:3004/todo")
-        .then((loadedData) => loadedData.json())
-        .then((loadedToDos) => {
-          setMes(loadedToDos.find((el) => el.id === Number(id)).task);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }, [id]);
+  //   useEffect(() => {
+  //     fetch("http://localhost:3004/todo")
+  //       .then((loadedData) => loadedData.json())
+  //       .then((loadedToDos) => {
+  //         setMes(loadedToDos.find((el) => el.id === Number(id)).task);
+  //       })
+  //       .finally(() => {
+  //         setIsLoading(false);
+  //       });
+  //   }, [id]);
 
-    return (
-      <>
-        <div className="NewPage">
-          <div className="NewPageWrapper">
-            <span>{mes}</span>
-            <button className="backButton" onClick={() => nav(-1)}>
-              Назад
-            </button>
-          </div>
-        </div>
-      </>
-    );
-  };
+  //   return (
+  //     <>
+  //       <div className="NewPage">
+  //         <div className="NewPageWrapper">
+  //           <span>{mes}</span>
+  //           <button className="backButton" onClick={() => nav(-1)}>
+  //             Назад
+  //           </button>
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // };
 
   const MainPage = () => {
     return (
