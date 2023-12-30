@@ -3,7 +3,7 @@ import { useState, useRef, useContext } from "react";
 import { Context } from "./Context";
 import React from "react";
 
-export const Search = ({ searchVisble }) => {
+export const SearchResult = ({ searchVisble }) => {
   const [search, setSearch] = useState("");
   const input = useRef(null);
   const [resultMessage, setResultMessage] = useState("");

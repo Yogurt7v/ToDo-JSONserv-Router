@@ -1,25 +1,19 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Routes,
-  Route,
-  BrowserRouter,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
-import Post from "./components/post";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AddPost } from "./components/AddPost";
-import { Search } from "./components/Search";
+import { SearchResult } from "./components/SearchResult";
 import { NoPage } from "./components/NoPage";
 import { Context } from "./components/Context";
 import { NewPageTask } from "./components/NewPageTask";
+import { ToDoListResult } from "./components/ToDoListResult";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [searchVisble, setSearchVisble] = useState(false);
+  const [prevTodo, setPrevTodo] = useState([]);
   const [sortedList, setSortedList] = useState(false);
-  const [prevTodo, setPrevTodo] = useState([...todoList]);
-  const ref = useRef(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef(null);
 
@@ -84,83 +78,46 @@ function App() {
   };
 
   const sort = () => {
-    setPrevTodo([...todoList]);
-    if (!sortedList) {
-      const sortedArr = [...todoList].sort((a, b) =>
-        a.task.localeCompare(b.task)
-      );
-      setTodoList([...sortedArr]);
-      setSortedList(!sortedList);
-      ref.current.style.backgroundColor = "#5986db";
-      ref.current.style.color = "white";
-    }
-    if (sortedList) {
-      setTodoList([...prevTodo]);
-      setSortedList(!sortedList);
-      ref.current.style.backgroundColor = "white";
-      ref.current.style.color = "black";
-    }
+    fetch("http://localhost:3004/todo/", {
+      method: "GET",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPrevTodo([...data]);
+        if (!sortedList) {
+          const sortedTasks = data.sort((a, b) => a.task.localeCompare(b.task));
+
+          setTodoList([...sortedTasks]);
+          setSortedList(!sortedList);
+        }
+        if (sortedList) {
+          setTodoList([...prevTodo]);
+          setSortedList(!sortedList);
+        }
+      });
   };
-
-  // const NewPageTask = () => {
-  //   const nav = useNavigate();
-  //   const { id } = useParams();
-  //   const [mes, setMes] = useState("");
-
-  //   useEffect(() => {
-  //     fetch("http://localhost:3004/todo")
-  //       .then((loadedData) => loadedData.json())
-  //       .then((loadedToDos) => {
-  //         setMes(loadedToDos.find((el) => el.id === Number(id)).task);
-  //       })
-  //       .finally(() => {
-  //         setIsLoading(false);
-  //       });
-  //   }, [id]);
-
-  //   return (
-  //     <>
-  //       <div className="NewPage">
-  //         <div className="NewPageWrapper">
-  //           <span>{mes}</span>
-  //           <button className="backButton" onClick={() => nav(-1)}>
-  //             Назад
-  //           </button>
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
-  // };
 
   const MainPage = () => {
     return (
-      <Context.Provider value={{ todoList, setTodoList }}>
+      <Context.Provider value={{ todoList, setTodoList, deletePost, edit }}>
         <div className="App">
           <h1>To Do List</h1>
           <AddPost create={create} />
-          <button className="sortButton" onClick={sort} ref={ref}>
+          <button className="sortButton" onClick={sort}>
             Sort
           </button>
           <button className="searchButton" onClick={visible} ref={searchRef}>
             Search
           </button>
-          <Search searchVisble={searchVisble}></Search>
+          <SearchResult searchVisble={searchVisble}></SearchResult>
           {isLoading ? (
             <div className="loaderWrapper">
               <div class="loader"></div>
             </div>
           ) : (
-            todoList.map((todo, index) => (
-              <Post
-                key={todo.id}
-                task={todo}
-                index={index}
-                deletePost={deletePost}
-                edit={edit}
-              />
-            ))
+            <ToDoListResult />
           )}
-          <p className="AppFooter"></p>
         </div>
       </Context.Provider>
     );

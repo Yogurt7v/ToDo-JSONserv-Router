@@ -12,9 +12,6 @@ export const NewPageTask = () => {
       .then((loadedToDos) => {
         setMes(loadedToDos.find((el) => el.id === Number(id)).task);
       });
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
   }, [id]);
 
   return (

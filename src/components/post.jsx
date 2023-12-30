@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import style from "./post.module.css";
+import { useContext } from "react";
+import { Context } from "./Context";
 
-export const Post = ({ task, deletePost, edit }) => {
+export const Post = ({ key, task }) => {
+  const { deletePost, edit } = useContext(Context);
   const [closed, setClosed] = useState(true);
 
   return (
