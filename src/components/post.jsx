@@ -5,8 +5,35 @@ import { useContext } from "react";
 import { Context } from "./Context";
 
 export const Post = ({ key, task }) => {
-  const { deletePost, edit } = useContext(Context);
+  const { todoList, setTodoList } = useContext(Context);
   const [closed, setClosed] = useState(true);
+  const edit = (i) => {
+    let index = todoList.findIndex((el) => el.id === i);
+    fetch(`http://localhost:3004/todo/${todoList[index].id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        id: `${todoList[index].id}`,
+        task: prompt("Измените задачу", `${todoList[index].task}`),
+      }),
+    })
+      .then((rawResponse) => rawResponse.json())
+      .then((response) => {
+        todoList[index] = response;
+        setTodoList([...todoList]);
+      });
+  };
+
+  const deletePost = (id) => {
+    fetch(`http://localhost:3004/todo/${id}`, {
+      method: "DELETE",
+    })
+      .then((rawResponse) => rawResponse.json())
+      .then((response) => {
+        setTodoList([...todoList]);
+        setTodoList(todoList.filter((todo) => todo.id !== id));
+      });
+  };
 
   return (
     <div className={style.wrapperClosed} onClick={() => setClosed(!closed)}>

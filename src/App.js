@@ -11,11 +11,9 @@ import { ToDoListResult } from "./components/ToDoListResult";
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [searchVisble, setSearchVisble] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [prevTodo, setPrevTodo] = useState([]);
   const [sortedList, setSortedList] = useState(false);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const searchRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,49 +27,6 @@ function App() {
         setIsLoading(false);
       });
   }, []);
-
-  const create = (todo) => {
-    let id = Math.floor(Math.random() * 10000000);
-    fetch("http://localhost:3004/todo/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({
-        id: id,
-        task: `${todo}`,
-      }),
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        setTodoList([...todoList, response]);
-      });
-  };
-  const edit = (i) => {
-    let index = todoList.findIndex((el) => el.id === i);
-    fetch(`http://localhost:3004/todo/${todoList[index].id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({
-        id: `${todoList[index].id}`,
-        task: prompt("Измените задачу", `${todoList[index].task}`),
-      }),
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        todoList[index] = response;
-        setTodoList([...todoList]);
-      });
-  };
-
-  const deletePost = (id) => {
-    fetch(`http://localhost:3004/todo/${id}`, {
-      method: "DELETE",
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        setTodoList([...todoList]);
-        setTodoList(todoList.filter((todo) => todo.id !== id));
-      });
-  };
 
   const visible = () => {
     setSearchVisble(!searchVisble);
@@ -100,14 +55,14 @@ function App() {
 
   const MainPage = () => {
     return (
-      <Context.Provider value={{ todoList, setTodoList, deletePost, edit }}>
+      <Context.Provider value={{ todoList, setTodoList }}>
         <div className="App">
           <h1>To Do List</h1>
-          <AddPost create={create} />
+          <AddPost />
           <button className="sortButton" onClick={sort}>
             Sort
           </button>
-          <button className="searchButton" onClick={visible} ref={searchRef}>
+          <button className="searchButton" onClick={visible}>
             Search
           </button>
           <SearchResult searchVisble={searchVisble}></SearchResult>
