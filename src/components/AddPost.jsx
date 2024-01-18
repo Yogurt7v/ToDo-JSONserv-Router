@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import style from "./addposts.module.css";
-import { useContext } from "react";
-import { Context } from "./Context";
+// import { useContext } from "react";
+// import { Context } from "./Context";
+import { useSelector } from "react-redux";
 export const AddPost = () => {
   const [newTask, setNewTask] = useState();
-  const { todoList, setTodoList } = useContext(Context);
+  // const { todoList, setTodoList } = useContext(Context);
+  const todoList = useSelector((state) => state.todoList);
 
   const create = (todo) => {
     let id = Math.floor(Math.random() * 10000000);
@@ -19,7 +21,7 @@ export const AddPost = () => {
     })
       .then((rawResponse) => rawResponse.json())
       .then((response) => {
-        setTodoList([...todoList, response]);
+        // setTodoList([...todoList, response]);
       });
   };
 

@@ -1,9 +1,9 @@
 import React from "react";
 import Post from "./post";
-import { useContext } from "react";
-import { Context } from "./Context";
+import { useSelector } from "react-redux";
 export const ToDoListResult = () => {
-  const { todoList } = useContext(Context);
+
+  const todoList = useSelector((state) => state.todoList);
 
   return todoList.map((todo, index) => (
     <Post key={todo.id} task={todo} index={index} />

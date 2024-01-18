@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import style from "./post.module.css";
-import { useContext } from "react";
-import { Context } from "./Context";
+import { useSelector } from "react-redux";
 
 export const Post = ({ key, task }) => {
-  const { todoList, setTodoList } = useContext(Context);
+
+  const todoList = useSelector((state) => state.todoList);
   const [closed, setClosed] = useState(true);
   const edit = (i) => {
     let index = todoList.findIndex((el) => el.id === i);
@@ -20,7 +20,7 @@ export const Post = ({ key, task }) => {
       .then((rawResponse) => rawResponse.json())
       .then((response) => {
         todoList[index] = response;
-        setTodoList([...todoList]);
+        // setTodoList([...todoList]);
       });
   };
 
@@ -30,8 +30,8 @@ export const Post = ({ key, task }) => {
     })
       .then((rawResponse) => rawResponse.json())
       .then((response) => {
-        setTodoList([...todoList]);
-        setTodoList(todoList.filter((todo) => todo.id !== id));
+        // setTodoList([...todoList]);
+        // setTodoList(todoList.filter((todo) => todo.id !== id));
       });
   };
 

@@ -2,12 +2,17 @@ import style from "./search.module.css";
 import { useState, useRef, useContext } from "react";
 import { Context } from "./Context";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const SearchResult = ({ searchVisble }) => {
+  
+
   const [search, setSearch] = useState("");
   const input = useRef(null);
   const [resultMessage, setResultMessage] = useState("");
-  const { setTodoList } = useContext(Context);
+  const todoList = useSelector((state) => state.todoList);
+  const dispatch = useDispatch();
+  // const { setTodoList } = useContext(Context);
 
   const startSearch = (event) => {
     return setSearch(event.target.value);
@@ -22,7 +27,8 @@ export const SearchResult = ({ searchVisble }) => {
         if (response.length === 0) {
           setResultMessage("Ничего не найдено");
         } else {
-          setTodoList([...response]);
+          dispatch({ type: "SEARCH", payload: response });
+          // setTodoList([...response]);
         }
       })
       .finally(() => {});

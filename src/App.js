@@ -4,28 +4,30 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AddPost } from "./components/AddPost";
 import { SearchResult } from "./components/SearchResult";
 import { NoPage } from "./components/NoPage";
-import { Context } from "./components/Context";
+// import { Context } from "./components/Context";
 import { NewPageTask } from "./components/NewPageTask";
 import { ToDoListResult } from "./components/ToDoListResult";
+import { useDispatch } from "react-redux";
+import { getTodoList } from "./components/getTodoListAction";
+import { useSelector } from "react-redux";
+import { sortAction } from "./components/sortAction";
+
+
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+
+  const dispatch = useDispatch();
+  const todoList = useSelector((state) => state.todoList);
+  let isSorted = useSelector((state) => state.sortedList);
+
+
   const [searchVisble, setSearchVisble] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [prevTodo, setPrevTodo] = useState([]);
-  const [sortedList, setSortedList] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
+    dispatch({ type: "LOADING", payload: true });
+    dispatch(getTodoList)
 
-    fetch("http://localhost:3004/todo")
-      .then((loadedData) => loadedData.json())
-      .then((loadedToDos) => {
-        setTodoList(loadedToDos);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
   }, []);
 
   const visible = () => {
@@ -33,29 +35,18 @@ function App() {
   };
 
   const sort = () => {
-    fetch("http://localhost:3004/todo/", {
-      method: "GET",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPrevTodo([...data]);
-        if (!sortedList) {
-          const sortedTasks = data.sort((a, b) => a.task.localeCompare(b.task));
+    if(!isSorted){
+      dispatch(sortAction)
+      dispatch ({ type: "SORT", payload: true });
+    }if (isSorted){
+      dispatch({ type: "SET_PREV_TODO_LIST",});
+      dispatch ({ type: "SORT", payload: false });
+    }
 
-          setTodoList([...sortedTasks]);
-          setSortedList(!sortedList);
-        }
-        if (sortedList) {
-          setTodoList([...prevTodo]);
-          setSortedList(!sortedList);
-        }
-      });
   };
 
   const MainPage = () => {
     return (
-      <Context.Provider value={{ todoList, setTodoList }}>
         <div className="App">
           <h1>To Do List</h1>
           <AddPost />
@@ -74,7 +65,6 @@ function App() {
             <ToDoListResult />
           )}
         </div>
-      </Context.Provider>
     );
   };
 
