@@ -5,7 +5,9 @@ const initialState = {
     searchVisble: false,
     isLoading: false,
     prevTodo: [],
-    sortedList: false
+    sortedList: false,
+    id:null,
+    task:null
 }
 
 export const reducer = (state = initialState, action) => {
@@ -53,6 +55,13 @@ export const reducer = (state = initialState, action) => {
               ...state, sortedList: payload
             }
           }
+
+          case "ADD_POST":{
+            return {
+              ...state, todoList: [...state.todoList, payload]
+            }
+          }
+
 
   
       default:

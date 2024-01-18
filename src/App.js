@@ -17,12 +17,13 @@ import { sortAction } from "./components/sortAction";
 function App() {
 
   const dispatch = useDispatch();
-  const todoList = useSelector((state) => state.todoList);
+  // const todoList = useSelector((state) => state.todoList);
   let isSorted = useSelector((state) => state.sortedList);
 
 
   const [searchVisble, setSearchVisble] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector((state) => state.isLoading);
+  // const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     dispatch({ type: "LOADING", payload: true });

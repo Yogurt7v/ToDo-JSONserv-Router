@@ -1,28 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import style from "./addposts.module.css";
-// import { useContext } from "react";
-// import { Context } from "./Context";
-import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { createTodoAction } from "./createTodoAction";
+
 export const AddPost = () => {
   const [newTask, setNewTask] = useState();
-  // const { todoList, setTodoList } = useContext(Context);
-  const todoList = useSelector((state) => state.todoList);
+  const dispat = useDispatch();
 
   const create = (todo) => {
-    let id = Math.floor(Math.random() * 10000000);
-    fetch("http://localhost:3004/todo/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({
-        id: id,
-        task: `${todo}`,
-      }),
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        // setTodoList([...todoList, response]);
-      });
+    dispat(createTodoAction(todo));
   };
 
   const handleChange = (event) => {
