@@ -62,6 +62,11 @@ export const reducer = (state = initialState, action) => {
             }
           }
 
+          case "EDIT_POST":{
+            return {
+              ...state, todoList: [...state.todoList, payload]
+            }
+          }
 
   
       default:

@@ -1,27 +1,21 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./post.module.css";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { editAction } from "../actions/editAction";
+import { getTodoList } from "../actions/getTodoListAction";
 
 export const Post = ({ key, task }) => {
+
+  const dispatch = useDispatch();
 
   const todoList = useSelector((state) => state.todoList);
   const [closed, setClosed] = useState(true);
   const edit = (i) => {
     let index = todoList.findIndex((el) => el.id === i);
-    fetch(`http://localhost:3004/todo/${todoList[index].id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({
-        id: `${todoList[index].id}`,
-        task: prompt("Измените задачу", `${todoList[index].task}`),
-      }),
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        todoList[index] = response;
-        // setTodoList([...todoList]);
-      });
+    dispatch(editAction(todoList, index));
+    dispatch(getTodoList)
   };
 
   const deletePost = (id) => {

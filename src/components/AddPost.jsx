@@ -2,14 +2,14 @@ import React from "react";
 import { useState } from "react";
 import style from "./addposts.module.css";
 import { useDispatch } from 'react-redux';
-import { createTodoAction } from "./createTodoAction";
+import { createTodoAction } from "../actions/createTodoAction";
 
-export const AddPost = () => {
+export const AddPost = () => {    // эта часть сделана.
   const [newTask, setNewTask] = useState();
-  const dispat = useDispatch();
+  const dispatch = useDispatch();
 
   const create = (todo) => {
-    dispat(createTodoAction(todo));
+    dispatch(createTodoAction(todo));
   };
 
   const handleChange = (event) => {

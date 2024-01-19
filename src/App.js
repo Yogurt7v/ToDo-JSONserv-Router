@@ -8,9 +8,9 @@ import { NoPage } from "./components/NoPage";
 import { NewPageTask } from "./components/NewPageTask";
 import { ToDoListResult } from "./components/ToDoListResult";
 import { useDispatch } from "react-redux";
-import { getTodoList } from "./components/getTodoListAction";
+import { getTodoList } from "./actions/getTodoListAction";
 import { useSelector } from "react-redux";
-import { sortAction } from "./components/sortAction";
+import { sortAction } from "./actions/sortAction";
 
 
 
