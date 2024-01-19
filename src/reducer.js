@@ -7,7 +7,8 @@ const initialState = {
     prevTodo: [],
     sortedList: false,
     id:null,
-    task:null
+    task:null,
+    resultMessage: "",
 }
 
 export const reducer = (state = initialState, action) => {
@@ -18,11 +19,6 @@ export const reducer = (state = initialState, action) => {
     } = action
 
     switch (type) {
-      case "SEARCH":
-        return {
-          ...state,
-          todoList: payload
-        }
 
         case "LOADING":
           return {
@@ -56,15 +52,20 @@ export const reducer = (state = initialState, action) => {
             }
           }
 
-          case "ADD_POST":{
+          case "EDIT_POST":{
             return {
               ...state, todoList: [...state.todoList, payload]
             }
           }
-
-          case "EDIT_POST":{
+          case "SEARCH": {
             return {
-              ...state, todoList: [...state.todoList, payload]
+              ...state, todoList: payload
+            }
+          }
+
+          case "RESULT_MESSAGE":{
+            return {
+              ...state, resultMessage: payload
             }
           }
 

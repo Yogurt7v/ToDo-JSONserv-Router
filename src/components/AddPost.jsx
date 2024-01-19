@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import style from "./addposts.module.css";
 import { useDispatch } from 'react-redux';
 import { createTodoAction } from "../actions/createTodoAction";

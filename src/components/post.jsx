@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import style from "./post.module.css";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { editAction } from "../actions/editAction";
 import { getTodoList } from "../actions/getTodoListAction";
 import { deleteAction } from "../actions/deleteAction";
 
-export const Post = ({ id, task, index}) => {
+export const Post = ({ task}) => {
 
   const dispatch = useDispatch();
   const todoList = useSelector((state) => state.todoList);

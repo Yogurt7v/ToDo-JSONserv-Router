@@ -4,7 +4,6 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AddPost } from "./components/AddPost";
 import { SearchResult } from "./components/SearchResult";
 import { NoPage } from "./components/NoPage";
-// import { Context } from "./components/Context";
 import { NewPageTask } from "./components/NewPageTask";
 import { ToDoListResult } from "./components/ToDoListResult";
 import { useDispatch } from "react-redux";
@@ -17,18 +16,15 @@ import { sortAction } from "./actions/sortAction";
 function App() {
 
   const dispatch = useDispatch();
-  // const todoList = useSelector((state) => state.todoList);
   let isSorted = useSelector((state) => state.sortedList);
-
-
   const [searchVisble, setSearchVisble] = useState(false);
   const isLoading = useSelector((state) => state.isLoading);
-  // const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     dispatch({ type: "LOADING", payload: true });
     dispatch(getTodoList)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const visible = () => {

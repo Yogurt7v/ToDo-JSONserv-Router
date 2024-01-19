@@ -1,6 +1,5 @@
 import { reducer } from './reducer';
-import { legacy_createStore as createStore} from 'redux'
-import { applyMiddleware, compose } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware, compose} from 'redux'
 import { thunk } from 'redux-thunk';
 
 

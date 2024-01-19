@@ -1,37 +1,21 @@
 import style from "./search.module.css";
-import { useState, useRef, useContext } from "react";
-// import { Context } from "./Context";
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { searchListAction } from "../actions/searchListAction";
 
 export const SearchResult = ({ searchVisble }) => {
-  
 
+  const resultMessage = useSelector((state) => state.resultMessage);  
   const [search, setSearch] = useState("");
   const input = useRef(null);
-  const [resultMessage, setResultMessage] = useState("");
-  const todoList = useSelector((state) => state.todoList);
   const dispatch = useDispatch();
-  // const { setTodoList } = useContext(Context);
 
   const startSearch = (event) => {
     return setSearch(event.target.value);
   };
 
   const searchedList = (word) => {
-    fetch(`http://localhost:3004/todo/?q=${word}`, {
-      method: "GET",
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        if (response.length === 0) {
-          setResultMessage("Ничего не найдено");
-        } else {
-          dispatch({ type: "SEARCH", payload: response });
-          // setTodoList([...response]);
-        }
-      })
-      .finally(() => {});
+    dispatch(searchListAction(word));
   };
   const letsSearch = () => {
     searchedList(search);
