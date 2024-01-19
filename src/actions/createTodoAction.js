@@ -13,8 +13,6 @@ export const createTodoAction = (todo) =>  (dispatch) => {
       .then((rawResponse) => rawResponse.json())
       .then((response) => {
         dispatch({type :"EDIT_POST", payload: response})
-        // console.log(response);
-        // setTodoList([...todoList, response]);
       });
     };
 

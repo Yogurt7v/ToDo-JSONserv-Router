@@ -1,6 +1,6 @@
 import style from "./search.module.css";
 import { useState, useRef, useContext } from "react";
-import { Context } from "./Context";
+// import { Context } from "./Context";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 

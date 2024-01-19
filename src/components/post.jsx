@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { editAction } from "../actions/editAction";
 import { getTodoList } from "../actions/getTodoListAction";
+import { deleteAction } from "../actions/deleteAction";
 
-export const Post = ({ key, task }) => {
+export const Post = ({ id, task, index}) => {
 
   const dispatch = useDispatch();
-
   const todoList = useSelector((state) => state.todoList);
   const [closed, setClosed] = useState(true);
   const edit = (i) => {
@@ -19,14 +19,8 @@ export const Post = ({ key, task }) => {
   };
 
   const deletePost = (id) => {
-    fetch(`http://localhost:3004/todo/${id}`, {
-      method: "DELETE",
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        // setTodoList([...todoList]);
-        // setTodoList(todoList.filter((todo) => todo.id !== id));
-      });
+    dispatch(deleteAction(id))
+    dispatch(getTodoList)
   };
 
   return (
